@@ -1,0 +1,64 @@
+  
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>로그인 페이지</title>
+    <!-- Link 예제 -->
+    <script src="http://code.jquery.com/jquery.min.js" ></script>
+</head>
+<body>
+
+<h1>th:text 예제</h1>
+<p th:text="${test}"></p>
+
+<p th:text="${select}"></p>
+
+	아이디:<input type="text" maxlength="25" name="user_id" class="user_id" id="user_id"><br><br>
+	비밀번호:<input type="password" maxlength="20" name="user_pw" class="user_pw" id="user_pw"><br><br>
+	<button id="login">로그인</button>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    $("#login").click(function(e){
+	    var loginID = $("#user_id").val();
+	    var loginPW = $("#user_pw").val();
+	    if( loginID =='') {
+	        alert("아이디를 입력하세요");
+	        $("#user_id").focus();
+	        return false;
+	    } 
+	    if(loginPW =='') {
+	        alert("패스워드를 입력하세요!");
+	        $("#user_pw").focus();
+	        return false;
+	    } 
+			  
+			$.ajax({
+				data : {
+					user_id : loginID,
+					user_pw : loginPW
+				},
+				url : '/login',
+				dataType : 'json',
+				contentType: 'application/json',
+				async: false,
+				success : function(data) {
+					if(data.cnt == 1){
+						//성공 세션
+					}else{
+						//실패 다시 시도
+					}
+					alert(data.msg);
+				}
+			});
+			
+			
+			return alert(result.result);
+
+		});
+	});
+</script>
+</body>
+</html>
